@@ -1,9 +1,15 @@
 'use strict';
 const express = require('express');
+const router = express.Router();
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
-const router = express.Router();
+
 const {BlogPosts} = require('../model');
+
+
+BlogPosts.create('title1', 'content1', 'author1');
+BlogPosts.create('title2', 'content2', 'author2');
+BlogPosts.create('title3', 'content3', 'author3');
 
 router.get('/', (req, res) => {
   res.json(BlogPosts.get());
@@ -19,9 +25,7 @@ router.post('/', jsonParser, (req, res) => {
       return res.status(400).send(message);
     }
   }
-
-
-  const item = BlogPosts.create(req.body.title, req.body.content, req.body.author);
+ const item = BlogPosts.create(req.body.title, req.body.content, req.body.author);
   res.status(201).json(item);
 });
 
