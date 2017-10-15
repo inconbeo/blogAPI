@@ -3,22 +3,24 @@ const express = require('express');
 
 const morgan = require('morgan');
 
-const bodyParser = require('body-parser');
-const jsonParser = bodyParser.json();
+// const bodyParser = require('body-parser');
+// const jsonParser = bodyParser.json();
 
 const app = express();
 const blogRouter = require('./blog-posts-router/blog-posts-router');
 
-
+// // log the http layer
+// app.use(morgan('common'));
 app.use('/blog-posts', blogRouter);
 
-app.listen(process.env.PORT || 8080, () => {
-  console.log(`Your app is listening on port ${process.env.PORT || 8080}`);
-});
+// app.listen(process.env.PORT || 8080, () => {
+//   console.log(`Your app is listening on port ${process.env.PORT || 8080}`);
+// });
 
 // this function starts our server and returns a Promise.
 // In our test code, we need a way of asynchronously starting
 // our server, since we'll be dealing with promises there.
+let server;
 function runServer() {
   const port = process.env.PORT || 8080;
   return new Promise((resolve, reject) => {
