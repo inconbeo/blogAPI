@@ -2,7 +2,7 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 
-const {app, runServer, CloseServer} = require('../server');
+const {app, runServer, closeServer} = require('../server');
 
 const should = chai.should();
 chai.use(chaiHttp);
@@ -18,7 +18,7 @@ after(function() {
 
 describe('BlogPosts', function() {
   it('should list blog posts in GET', function() {
-    return chai.response(app)
+    return chai.request(app)
       .get('/blog-posts')
       .then(function(res) {
         res.should.have.status(200);
@@ -27,7 +27,7 @@ describe('BlogPosts', function() {
         console.log(res.body);
         res.body.length.should.be.above(0);
         const expectedkeys = ['title', 'content', 'author'];
-        res.body.array.forEach(function(item) {
+        res.body.forEach(function(item) {
           item.should.be.a('object');
           item.should.include.keys(expectedkeys);
         });
@@ -36,10 +36,12 @@ describe('BlogPosts', function() {
 
   it('should add a blog post on POST', function() {
     const newBlog = {
-      title: 'x', content: 'y', author: 'z'
+      title: 'x', 
+      content: 'y', 
+      author: 'z'
     };
-    return chai.response.request(app)
-      .post('blog-posts')
+    return chai.request(app)
+      .post('/blog-posts')
       .send(newBlog)
       .then(function(res) {
         res.should.have.status(201);
@@ -47,7 +49,7 @@ describe('BlogPosts', function() {
         res.body.should.be.a('object');
         res.body.should.include.keys('title', 'content', 'author');
         res.body.id.should.not.be.null;
-        res.body.should.deep.equal(Object.assign(newBlog, {id: res.body.id}));
+        res.body.should.deep.equal(Object.assign(newBlog, {id: res.body.id, publishDate: res.body.publishDate}));
 
       });
   });
