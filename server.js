@@ -10,7 +10,7 @@ const app = express();
 const blogRouter = require('./blog-posts-router/blog-posts-router');
 
 // // log the http layer
-// app.use(morgan('common'));
+app.use(morgan('common'));
 app.use('/blog-posts', blogRouter);
 
 // app.listen(process.env.PORT || 8080, () => {
