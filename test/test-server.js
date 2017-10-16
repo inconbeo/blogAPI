@@ -69,11 +69,11 @@ describe('BlogPosts', function() {
       .then(function(res) {
         res.should.have.status(204);
         //optional step to see the updated list
-        return chai.request(app)
-          .get('/blog-posts')
-          .then(function(res) {
-            //console.log(res);
-          });
+        // return chai.request(app)
+        //   .get('/blog-posts')
+        //   .then(function(res) {
+        //     //console.log(res);
+          
       });
   });
 
