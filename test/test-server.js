@@ -24,7 +24,7 @@ describe('BlogPosts', function() {
         res.should.have.status(200);
         res.should.be.json;
         res.body.should.be.a('array');
-        console.log(res.body);
+        //console.log(res.body);
         res.body.length.should.be.above(0);
         const expectedkeys = ['title', 'content', 'author'];
         res.body.forEach(function(item) {
@@ -72,7 +72,7 @@ describe('BlogPosts', function() {
         return chai.request(app)
           .get('/blog-posts')
           .then(function(res) {
-            console.log(res);
+            //console.log(res);
           });
       });
   });
